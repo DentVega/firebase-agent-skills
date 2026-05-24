@@ -53,6 +53,10 @@ Each skill is a folder under `skills/<skill-name>/` containing:
 
 The agent reads each skill's `description` and decides whether the current task matches. Keep descriptions specific and action-oriented — that is what drives correct triggering.
 
+## See it in action
+
+[**DentVega/firebase-skills-example**](https://github.com/DentVega/firebase-skills-example) — a reference Expo + Firebase project showing what an agent produces when guided by these skills. Auth-gated routing, email + Google sign-in, real-time Firestore todos with secure rules, plus a v2 callable function.
+
 ## Why this exists vs. the official repo
 
 The official [`firebase/agent-skills`](https://github.com/firebase/agent-skills) covers web-first scenarios (App Hosting, Hosting, Data Connect). This repo focuses on:

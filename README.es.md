@@ -53,6 +53,10 @@ Cada skill es una carpeta en `skills/<nombre-skill>/` que contiene:
 
 El agente lee la `description` de cada skill y decide si la tarea actual coincide. Mantén las descripciones específicas y orientadas a la acción — eso es lo que hace que se activen correctamente.
 
+## Velo en acción
+
+[**DentVega/firebase-skills-example**](https://github.com/DentVega/firebase-skills-example) — proyecto Expo + Firebase de referencia que muestra qué genera un agente cuando sigue estas skills. Routing con guardas de auth, sign-in con email + Google, todos en Firestore en tiempo real con reglas seguras, más una callable function v2.
+
 ## Por qué existe este repo vs. el oficial
 
 El oficial [`firebase/agent-skills`](https://github.com/firebase/agent-skills) cubre escenarios web-first (App Hosting, Hosting, Data Connect). Este repo se enfoca en:
