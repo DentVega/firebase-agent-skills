@@ -127,6 +127,8 @@ For simulators, emulators, and CI, you cannot generate real attestation tokens. 
 
 Debug tokens look like real tokens to Firebase; **rotate or delete them when team members leave**. They bypass attestation.
 
+For full debug token playbook (CI, team rotation, leak detection) see [references/debug-tokens.md](references/debug-tokens.md).
+
 ## 6. Common mistakes
 
 - **Enforcing without monitoring first.** Blocks every user who hasn't received an updated client with App Check wired. Always monitor unverified traffic for at least a week before flipping enforcement.

@@ -179,6 +179,8 @@ await getMessaging().send({
 
 Topic names must match `[a-zA-Z0-9-_.~%]+`. Max 5 topics per device for direct subscriptions, but server-side topic management has no limit.
 
+For Android notification channels, custom sounds, rich notifications with images, and action buttons see [references/notification-channels.md](references/notification-channels.md).
+
 ## 7. Common mistakes
 
 - **Using `expo-notifications` for remote push.** It's for local notifications only. Remote FCM requires `@react-native-firebase/messaging`.

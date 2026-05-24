@@ -79,6 +79,8 @@ const { status } = await requestTrackingPermissionsAsync();
 
 Firebase Analytics still works without ATT for first-party events and aggregate metrics — only IDFA-linked features (Audiences for ads, attribution) are affected.
 
+**If shipping in the EEA, UK, or Switzerland**, you also need Google Consent Mode v2 — see [references/consent-mode.md](references/consent-mode.md). Without it, Google blocks all data from those regions.
+
 ## 3. Log events
 
 ```ts

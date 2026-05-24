@@ -158,6 +158,8 @@ const fullHistory = await chat.getHistory();
 
 Persist `getHistory()` to Firestore if you need conversations to survive app restarts.
 
+For tool use / function calling — letting Gemini invoke your APIs or query Firestore as part of a conversation — see [references/function-calling.md](references/function-calling.md).
+
 ## 10. System instructions
 
 Set persistent context that applies to every turn without consuming chat history:

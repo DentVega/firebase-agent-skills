@@ -122,6 +122,8 @@ To ship a feature to 10% of users:
 
 Combine with a manual override condition (`User property "qa_tester" exactly matches "true" → true`) so QA can always test the feature.
 
+For the full rollout sequence (internal → 1% → 10% → A/B → 100%) with rollback runbook see [references/rollout-playbook.md](references/rollout-playbook.md).
+
 ## 7. Read from a Cloud Function
 
 You can read Remote Config server-side via the Admin SDK to keep client and server in sync:
