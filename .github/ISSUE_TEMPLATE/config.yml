@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussion / general question
+    url: https://github.com/DentVega/firebase-agent-skills/discussions
+    about: For "how do I..." questions or open-ended ideas before filing an issue.
+  - name: Official Firebase agent skills
+    url: https://github.com/firebase/agent-skills
+    about: For issues with the official Firebase-maintained skills (Hosting, App Hosting, Data Connect), please file there.
+  - name: Agent Skills format spec
+    url: https://agentskills.io
+    about: For questions about the underlying skills format itself.

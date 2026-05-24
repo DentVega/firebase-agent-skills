@@ -1,0 +1,75 @@
+name: Bug in an existing skill
+description: Report wrong, outdated, or misleading content in a skill.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Which skill?
+      options:
+        - firebase-auth
+        - firebase-firestore
+        - firebase-cloud-functions
+        - firebase-expo
+        - firebase-storage
+        - firebase-messaging
+        - firebase-crashlytics
+        - firebase-app-check
+        - firebase-remote-config
+        - firebase-analytics
+        - firebase-ai-logic
+        - Other / multiple
+    validations:
+      required: true
+
+  - type: input
+    id: file
+    attributes:
+      label: File and section
+      description: Path within the skill plus the section heading.
+      placeholder: skills/firebase-auth/SKILL.md → section 3, "Sign in with Google"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-says
+    attributes:
+      label: What the skill currently says
+      description: Quote or paraphrase the problematic text.
+    validations:
+      required: true
+
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: What's wrong with it
+      description: Outdated API, wrong syntax, misleading guidance, broken link, security issue, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-should-say
+    attributes:
+      label: What it should say instead
+      description: Concrete proposed fix. Code is welcome.
+
+  - type: textarea
+    id: source
+    attributes:
+      label: How do you know?
+      description: Link to official Firebase docs, SDK release notes, your own debugging, etc.
+      placeholder: https://firebase.google.com/docs/...
+
+  - type: dropdown
+    id: agent-impact
+    attributes:
+      label: How does this affect an AI agent following the skill?
+      options:
+        - Agent writes broken code
+        - Agent writes insecure code
+        - Agent picks the wrong approach
+        - Agent skips an important step
+        - Minor — wording / formatting only
+    validations:
+      required: true

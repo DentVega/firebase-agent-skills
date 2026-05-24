@@ -1,0 +1,78 @@
+name: Propose a new skill
+description: Suggest a new Firebase skill to add to this package.
+title: "[new skill] "
+labels: ["new-skill"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a new skill! Before opening, scan the existing
+        `skills/` directory to make sure it's not already covered.
+
+  - type: input
+    id: name
+    attributes:
+      label: Proposed skill name
+      description: kebab-case. Will be both the directory name and the frontmatter `name`.
+      placeholder: firebase-extensions
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Draft description
+      description: |
+        This is what the AI agent reads to decide whether to activate the skill.
+        Start with a verb. Name the products, platforms, and trigger scenarios.
+        Aim for 150-300 characters. See [CONTRIBUTING.md](../CONTRIBUTING.md#writing-a-great-description).
+      placeholder: |
+        Sets up and manages Firebase Extensions — browsing the marketplace,
+        installing extensions via the CLI, configuring parameters, and
+        viewing logs. Use whenever the user wants pre-built Firebase
+        functionality like image resizing, email triggers, or Stripe payments.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: What the skill should cover
+      description: Bullet the sections you'd expect in SKILL.md.
+      placeholder: |
+        - Listing available extensions (`firebase ext:list`)
+        - Installing and configuring an extension
+        - Updating / uninstalling
+        - Viewing extension Cloud Function logs
+        - Common mistakes (e.g. forgetting to enable required APIs)
+    validations:
+      required: true
+
+  - type: textarea
+    id: platforms
+    attributes:
+      label: Platforms / pairings
+      description: Which platforms does it apply to? Which other skills should it pair with?
+      placeholder: |
+        Platform: project-level (no platform-specific SDK)
+        Pairs with: firebase-cloud-functions, firebase-storage (some extensions add functions/buckets)
+
+  - type: textarea
+    id: production-traps
+    attributes:
+      label: Non-obvious production traps (most valuable section)
+      description: |
+        What do users get wrong here that an agent should know? This usually
+        ends up as the "Common mistakes" section of the SKILL.md.
+      placeholder: |
+        - Extensions are billed per Cloud Function invocation, not free even at low volume
+        - Updating an extension can reset its params if defaults changed upstream
+        - Some extensions require manual API enablement in GCP Console
+
+  - type: checkboxes
+    id: willing-to-author
+    attributes:
+      label: Are you willing to write it?
+      options:
+        - label: Yes, I plan to open a PR
+        - label: No, I'm only proposing — happy if someone else picks it up
