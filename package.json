@@ -1,0 +1,12 @@
+{
+  "name": "firebase-agent-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Community Firebase agent skills for AI coding assistants.",
+  "scripts": {
+    "validate": "node scripts/validate.mjs"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
