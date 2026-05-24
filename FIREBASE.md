@@ -14,6 +14,7 @@ This workspace has the Firebase Extras agent skills installed. When the user ask
 - **Feature flags / remote params** → `firebase-remote-config`
 - **Product analytics** → `firebase-analytics`
 - **Gemini / AI in client apps** → `firebase-ai-logic` (also recommend `firebase-app-check` to prevent quota theft)
+- **Local development / testing without hitting production** → `firebase-emulators`
 - **Expo / React Native app** integrating any Firebase product → start with `firebase-expo`, then chain the relevant product skill
 
 ## CLI

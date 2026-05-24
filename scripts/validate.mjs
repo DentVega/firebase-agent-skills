@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 /**
  * Validate every skill in skills/* and every top-level manifest.
- * Exits non-zero on any failure so CI blocks the PR.
+ *
+ * Two severity levels:
+ *   ERROR — blocks CI (structural issues that break the package)
+ *   WARN  — surfaced but doesn't block (style / quality issues)
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, dirname, resolve, relative } from "node:path";
@@ -36,6 +39,57 @@ function extractFrontmatter(source) {
   }
 }
 
+// -- Description quality heuristics -----------------------------------------
+
+// Whitelist of acceptable verbs the description can start with. Add new ones
+// as new skills introduce them — we want to *encourage* a consistent voice.
+const VERB_WHITELIST = new Set([
+  "sets", "configures", "integrates", "adds", "protects", "provisions",
+  "scaffolds", "runs", "manages", "implements", "wires", "installs",
+  "deploys", "generates", "handles", "builds", "creates", "validates",
+  "documents", "optimizes", "audits", "monitors", "tests", "logs",
+  "stores", "queries", "syncs",
+]);
+
+function descriptionStartsWithVerb(desc) {
+  const firstWord = desc.trim().split(/\s+/)[0]?.toLowerCase().replace(/[.,]$/, "");
+  return firstWord && VERB_WHITELIST.has(firstWord);
+}
+
+function descriptionHasTriggerClause(desc) {
+  return /\buse\s+(this\s+skill\s+)?(when|whenever|for)\b/i.test(desc);
+}
+
+// -- Body checks ------------------------------------------------------------
+
+function hasCommonMistakesSection(body) {
+  return /^#+\s*.*common\s+mistakes/im.test(body);
+}
+
+function codeBlocksWithoutLang(body) {
+  // Match full fenced pairs so we don't count closing fences. Capture only
+  // the opener's language tag (whatever follows the opening ```).
+  const matches = [...body.matchAll(/```([^\n]*)\n[\s\S]*?\n```/g)];
+  return matches.filter((m) => m[1].trim() === "").length;
+}
+
+function bareFirebaseInvocations(body) {
+  // Lines inside bash blocks that call `firebase` without `npx`.
+  const bashBlocks = [...body.matchAll(/```(?:bash|sh|shell)\n([\s\S]*?)\n```/g)];
+  const offenders = [];
+  for (const block of bashBlocks) {
+    const lines = block[1].split("\n");
+    for (const line of lines) {
+      const trimmed = line.replace(/^\$\s*/, "").trim();
+      // Match `firebase <something>` at start, but NOT npx wrappers or paths
+      if (/^firebase\b/.test(trimmed) && !/firebase-tools/.test(trimmed)) {
+        offenders.push(trimmed);
+      }
+    }
+  }
+  return offenders;
+}
+
 // -- Per-skill validation ---------------------------------------------------
 
 function validateSkill(skillDir) {
@@ -61,11 +115,11 @@ function validateSkill(skillDir) {
 
   const { data, body } = fm;
 
-  // Required fields
+  // ERROR: required fields
   if (!data.name) err(skillFile, "frontmatter missing `name`");
   if (!data.description) err(skillFile, "frontmatter missing `description`");
 
-  // name must match directory
+  // ERROR: name must match directory
   if (data.name && data.name !== skillName) {
     err(skillFile, `frontmatter name="${data.name}" must match directory "${skillName}"`);
   }
@@ -73,13 +127,32 @@ function validateSkill(skillDir) {
   // Description quality
   if (data.description) {
     const desc = String(data.description).trim();
+
+    // ERROR: minimum length for reliable model triggering
     if (desc.length < MIN_DESCRIPTION_LEN) {
       err(skillFile,
         `description is ${desc.length} chars — minimum ${MIN_DESCRIPTION_LEN} for reliable model triggering`);
     }
+
+    // ERROR: must start with capital
+    if (!/^[A-Z]/.test(desc)) {
+      err(skillFile, "description must start with a capital letter");
+    }
+
+    // WARN: should start with an approved verb
+    if (!descriptionStartsWithVerb(desc)) {
+      warn(skillFile,
+        `description doesn't start with a known action verb (got "${desc.split(/\s+/)[0]}") — see CONTRIBUTING.md "Writing a great description"`);
+    }
+
+    // WARN: should include a "Use when/whenever/for" trigger clause
+    if (!descriptionHasTriggerClause(desc)) {
+      warn(skillFile,
+        "description is missing a 'Use when/whenever/for ...' trigger clause — the model relies on this to know when to activate");
+    }
   }
 
-  // References: every relative link must resolve
+  // ERROR: references/* links must resolve
   const refLinks = [...body.matchAll(/\]\((references\/[^)]+)\)/g)].map((m) => m[1]);
   for (const link of refLinks) {
     const target = join(skillDir, link);
@@ -88,7 +161,27 @@ function validateSkill(skillDir) {
     }
   }
 
-  // Warn if SKILL.md has no body (only frontmatter)
+  // WARN: should have a "Common mistakes" section
+  if (!hasCommonMistakesSection(body)) {
+    warn(skillFile,
+      "SKILL.md is missing a 'Common mistakes' section — this is the highest-value content for an agent");
+  }
+
+  // WARN: code blocks without language tag (hurts syntax highlighting + parsing)
+  const untaggedBlocks = codeBlocksWithoutLang(body);
+  if (untaggedBlocks > 0) {
+    warn(skillFile,
+      `${untaggedBlocks} fenced code block(s) without a language tag (use \`\`\`bash, \`\`\`ts, \`\`\`json, etc.)`);
+  }
+
+  // WARN: bare `firebase` invocations in bash blocks (should use npx -y firebase-tools@latest)
+  const bareCmds = bareFirebaseInvocations(body);
+  if (bareCmds.length > 0) {
+    warn(skillFile,
+      `${bareCmds.length} bash invocation(s) using bare \`firebase\` instead of \`npx -y firebase-tools@latest\` (first: "${bareCmds[0]}")`);
+  }
+
+  // WARN: suspiciously short body
   if (body.trim().length < 100) {
     warn(skillFile, "SKILL.md body is suspiciously short");
   }
@@ -134,16 +227,19 @@ validateJson(join(ROOT, "gemini-extension.json"));
 validateJson(join(ROOT, ".mcp.json"));
 
 if (warnings.length) {
-  console.log("Warnings:");
+  console.log(`Warnings (${warnings.length}):`);
   warnings.forEach((w) => console.log("  " + w));
   console.log();
 }
 
 if (errors.length) {
-  console.log("Errors:");
+  console.log(`Errors (${errors.length}):`);
   errors.forEach((e) => console.log("  " + e));
-  console.log(`\n${errors.length} error(s) — see above`);
+  console.log(`\n${errors.length} error(s) — failing.`);
   process.exit(1);
 }
 
 console.log(`✓ ${skillDirs.length} skills valid, all manifests parse`);
+if (warnings.length > 0) {
+  console.log(`(${warnings.length} warning(s) — review above)`);
+}

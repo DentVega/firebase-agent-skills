@@ -17,7 +17,7 @@ await user.getIdToken(true);
 
 Use in rules:
 
-```
+```ts
 function isAdmin() {
   return request.auth != null && request.auth.token.role == "admin";
 }

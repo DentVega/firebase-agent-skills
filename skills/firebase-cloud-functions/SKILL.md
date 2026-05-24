@@ -22,7 +22,7 @@ npx -y firebase-tools@latest init functions
 
 Choose **TypeScript** and **install dependencies**. This creates `functions/` with:
 
-```
+```text
 functions/
   src/index.ts
   package.json
@@ -137,7 +137,7 @@ First deploy on a project enables required Google Cloud APIs (Cloud Build, Artif
 
 For non-secret config, use environment variables in `functions/.env`:
 
-```
+```dotenv
 STRIPE_API_VERSION=2024-04-10
 ```
 

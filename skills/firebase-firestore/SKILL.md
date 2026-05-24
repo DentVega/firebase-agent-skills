@@ -46,7 +46,7 @@ See [references/data-modeling.md](references/data-modeling.md) for full patterns
 
 Default to **deny everything**, then open up the minimum needed. Edit `firestore.rules`:
 
-```
+```firestore-rules
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -120,7 +120,17 @@ The first time a query needs a missing composite index, Firestore throws an erro
 - **Batch writes ≤ 500 ops.** For more, chunk and run them sequentially or in parallel batches.
 - **Never put secrets in documents.** Rules can be probed; if a field shouldn't be readable, don't store it client-side at all.
 
-## 6. Local emulator
+## 6. Common mistakes
+
+- **`allow read, write: if request.auth != null;`** — leaks every doc to every signed-in user. Always anchor rules to ownership (`request.auth.uid == resource.data.ownerId`) or membership.
+- **Polling with `getDocs` for UI that should react to changes.** Use `onSnapshot` and return its unsubscribe from `useEffect`. Otherwise listeners leak.
+- **Trusting client timestamps.** Use `serverTimestamp()` on write and `request.time` in rules — never `Date.now()`.
+- **Unbounded documents.** 1 MiB hard cap. A chat with 100k messages must be a subcollection, not an `array`.
+- **Querying object properties inside arrays.** Firestore can only `array-contains` whole values. Restructure to a subcollection if you need to filter by inner fields.
+- **Forgetting composite indexes in production.** Dev gets a console link to create them; CI hits the missing-index error. Commit `firestore.indexes.json`.
+- **Calling `setDoc(ref, data, { merge: true })` and expecting `create` rules to fire.** Merged writes evaluate `update` rules — write both.
+
+## 7. Local emulator
 
 For development, run the emulator suite so you don't burn quota and can iterate on rules safely:
 

@@ -37,7 +37,7 @@ This creates `storage.rules`.
 
 Default-deny, anchor to auth. Two common patterns:
 
-```
+```firestore-rules
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {

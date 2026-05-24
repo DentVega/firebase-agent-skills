@@ -19,6 +19,7 @@ A collection of [Agent Skills](https://agentskills.io/home) for AI coding assist
 | `firebase-remote-config` | Feature flags and dynamic params — defaults, targeting, A/B tests, gradual rollouts |
 | `firebase-analytics` | Custom events, user properties, iOS ATT consent, DebugView, BigQuery export |
 | `firebase-ai-logic` | Gemini in client apps via Firebase AI Logic — multimodal, streaming, structured JSON, chat |
+| `firebase-emulators` | Local Emulator Suite — setup, client wiring, seed import/export, CI usage, rules unit tests |
 
 ## Installation
 
