@@ -12,6 +12,13 @@ Colección de [Agent Skills](https://agentskills.io/home) para asistentes de có
 | `firebase-firestore` | Creación de la base, reglas de seguridad, modelado de datos y patrones de queries |
 | `firebase-cloud-functions` | Escribir, emular localmente y desplegar Cloud Functions (v2) |
 | `firebase-expo` | Integrar Firebase en apps Expo / React Native con los config plugins de `@react-native-firebase` y EAS Build |
+| `firebase-storage` | Cloud Storage — buckets, reglas, upload/download (web + RN), signed URLs, Expo ImagePicker |
+| `firebase-messaging` | Push notifications con FCM — setup APNs/Android, tokens, topics, envío desde Cloud Functions, deep links |
+| `firebase-crashlytics` | Reporte de crashes en RN — install, captura de errores JS, user IDs, breadcrumbs, source maps, dSYMs |
+| `firebase-app-check` | Protección contra abuso del backend — Play Integrity, App Attest, reCAPTCHA Enterprise, enforcement por producto |
+| `firebase-remote-config` | Feature flags y parámetros dinámicos — defaults, targeting, A/B tests, rollouts graduales |
+| `firebase-analytics` | Eventos custom, user properties, consentimiento ATT en iOS, DebugView, export a BigQuery |
+| `firebase-ai-logic` | Gemini en apps cliente vía Firebase AI Logic — multimodal, streaming, JSON estructurado, chat |
 
 ## Instalación
 

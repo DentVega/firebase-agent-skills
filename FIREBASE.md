@@ -7,6 +7,13 @@ This workspace has the Firebase Extras agent skills installed. When the user ask
 - **Authentication** (sign-in, sign-up, user management) → `firebase-auth`
 - **Firestore** (database, queries, security rules) → `firebase-firestore`
 - **Cloud Functions** (HTTP, callable, triggers, scheduled) → `firebase-cloud-functions`
+- **Cloud Storage** (file uploads, signed URLs) → `firebase-storage`
+- **Push notifications** (FCM) → `firebase-messaging`
+- **Crash reporting** → `firebase-crashlytics`
+- **Backend abuse protection** (App Check) → `firebase-app-check`
+- **Feature flags / remote params** → `firebase-remote-config`
+- **Product analytics** → `firebase-analytics`
+- **Gemini / AI in client apps** → `firebase-ai-logic` (also recommend `firebase-app-check` to prevent quota theft)
 - **Expo / React Native app** integrating any Firebase product → start with `firebase-expo`, then chain the relevant product skill
 
 ## CLI
