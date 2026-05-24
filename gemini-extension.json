@@ -1,0 +1,12 @@
+{
+  "name": "firebase-extras",
+  "description": "Community Firebase agent skills focused on Expo / React Native and cross-product mobile workflows.",
+  "version": "0.1.0",
+  "contextFileName": "FIREBASE.md",
+  "mcpServers": {
+    "firebase": {
+      "command": "npx",
+      "args": ["-y", "firebase-tools@latest", "mcp"]
+    }
+  }
+}

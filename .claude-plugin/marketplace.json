@@ -1,0 +1,15 @@
+{
+  "name": "firebase-extras",
+  "owner": {
+    "name": "Brian Dennis Vega Hidalgo"
+  },
+  "plugins": [
+    {
+      "name": "firebase-extras",
+      "description": "Community Firebase agent skills focused on Expo / React Native and cross-product mobile workflows. Complements the official firebase/agent-skills package.",
+      "category": "development",
+      "tags": ["firebase", "expo", "react-native", "mobile"],
+      "source": "./"
+    }
+  ]
+}

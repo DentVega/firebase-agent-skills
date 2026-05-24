@@ -1,0 +1,99 @@
+---
+name: firebase-auth
+description: >-
+  Sets up Firebase Authentication with email/password, Google Sign-In, and
+  Apple Sign-In. Use this skill whenever the user needs sign-in, sign-up,
+  user sessions, password reset, OAuth providers, or auth-gated routes in a
+  web, React Native, or Expo app.
+compatibility: Requires the Firebase CLI, available via `npx -y firebase-tools@latest`. For mobile, pair with the `firebase-expo` skill.
+---
+
+# Firebase Authentication
+
+## 1. Prerequisites
+
+A Firebase project must exist before running anything in this skill. Verify with:
+
+```bash
+npx -y firebase-tools@latest projects:list
+```
+
+If none exists, create one:
+
+```bash
+npx -y firebase-tools@latest projects:create
+```
+
+Make sure the local working directory is initialized:
+
+```bash
+npx -y firebase-tools@latest init
+```
+
+## 2. Provisioning providers
+
+Configure providers in `firebase.json`. Only `anonymous`, `emailPassword`, and `googleSignIn` can be enabled fully via CLI. Apple Sign-In requires manual steps in the Firebase Console.
+
+```json
+{
+  "auth": {
+    "providers": {
+      "anonymous": true,
+      "emailPassword": true,
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "My App",
+        "supportEmail": "support@example.com",
+        "authorizedRedirectUris": ["https://myapp.example.com"]
+      }
+    }
+  }
+}
+```
+
+**CRITICAL**: deploy the config so the backend provisions OAuth clients:
+
+```bash
+npx -y firebase-tools@latest deploy --only auth
+```
+
+### Apple Sign-In
+
+Apple cannot be enabled by CLI. Walk the user through:
+
+1. Open `https://console.firebase.google.com/project/_/authentication/providers`
+2. Enable **Apple** provider
+3. For iOS: enable the **Sign in with Apple** capability in Xcode; no Service ID needed
+4. For Android/Web: create a **Service ID** in the Apple Developer portal, set the redirect URL Firebase shows, paste the Service ID and key into the Firebase console
+
+For full Apple setup steps see [references/apple-signin.md](references/apple-signin.md).
+
+## 3. Client SDK usage
+
+The right module depends on the target platform:
+
+- **Web / Next.js / Vite** → `firebase` npm package (see [references/web-sdk.md](references/web-sdk.md))
+- **Expo / React Native** → `@react-native-firebase/auth` config plugin (see the `firebase-expo` skill, then [references/react-native.md](references/react-native.md))
+
+### Universal patterns to follow
+
+- **Never** store the user object in your own state — subscribe to `onAuthStateChanged` and derive state from it. This avoids stale UI after token refresh, sign-out, or account deletion.
+- **Always** await `auth.authStateReady()` (web) or use `onAuthStateChanged` (RN) before deciding whether to redirect to a sign-in screen. Otherwise the user briefly sees the sign-in screen on every reload.
+- **Never** send the ID token to your own backend without verifying it server-side with the Firebase Admin SDK. The client can forge anything else.
+
+## 4. Securing data with auth
+
+When this skill is used together with `firebase-firestore` or `firebase-cloud-functions`, the canonical pattern is:
+
+- Firestore rules: `allow read, write: if request.auth != null && request.auth.uid == resource.data.ownerId;`
+- Callable Cloud Functions: read `request.auth.uid` — if `undefined`, throw `HttpsError("unauthenticated", ...)`
+
+Defer to those skills for the full details.
+
+## 5. Common follow-ups
+
+- **Password reset** → `sendPasswordResetEmail(auth, email)` (web) or `auth().sendPasswordResetEmail(email)` (RN)
+- **Email verification** → `sendEmailVerification(user)` immediately after sign-up
+- **Account linking** (anonymous → permanent) → `linkWithCredential(user, credential)`
+- **Custom claims** (roles, tiers) → set from the Admin SDK / a Cloud Function, then `await user.getIdToken(true)` on the client to refresh
+
+If the user asks about any of these, point them at the appropriate reference file or expand with details from the official docs at `https://firebase.google.com/docs/auth`.
