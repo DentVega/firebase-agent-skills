@@ -20,19 +20,19 @@ A collection of [Agent Skills](https://agentskills.io/home) for AI coding assist
 Works with Claude Code, Cursor, GitHub Copilot, and any other tool that supports the [Agent Skills](https://agentskills.io) format:
 
 ```bash
-npx skills add YOUR-GITHUB-USER/firebase-agent-skills
+npx skills add DentVega/firebase-agent-skills
 ```
 
 ### Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/YOUR-GITHUB-USER/firebase-agent-skills
+gemini extensions install https://github.com/DentVega/firebase-agent-skills
 ```
 
 ### Claude Code (as plugin)
 
 ```bash
-claude plugin marketplace add YOUR-GITHUB-USER/firebase-agent-skills
+claude plugin marketplace add DentVega/firebase-agent-skills
 claude plugin install firebase-extras@firebase-extras
 ```
 
