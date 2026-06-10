@@ -13,7 +13,7 @@ compatibility: Requires the Firebase CLI via `npx -y firebase-tools@latest`. For
 
 ## Minimum viable example
 
-```ts
+```ts // @verify
 import storage from "@react-native-firebase/storage";
 
 const ref = storage().ref(`users/${uid}/avatar.jpg`);

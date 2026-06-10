@@ -12,7 +12,7 @@ compatibility: Requires the Firebase CLI, available via `npx -y firebase-tools@l
 
 ## Minimum viable example
 
-```ts
+```ts // @verify
 import auth from "@react-native-firebase/auth";
 
 await auth().signInWithEmailAndPassword(email, password);
@@ -77,6 +77,17 @@ Apple cannot be enabled by CLI. Walk the user through:
 4. For Android/Web: create a **Service ID** in the Apple Developer portal, set the redirect URL Firebase shows, paste the Service ID and key into the Firebase console
 
 For full Apple setup steps see [references/apple-signin.md](references/apple-signin.md).
+
+## Scaffold a sign-in screen
+
+If the user wants the canonical Expo sign-in screen with email + Google, invoke the scaffold instead of typing it out:
+
+```bash
+node node_modules/firebase-agent-skills/scripts/scaffold/auth-screen.mjs \
+  --out 'app/(auth)/sign-in.tsx'
+```
+
+Then replace `YOUR_WEB_CLIENT_ID` with the value from Google Cloud Console. The scaffold mirrors section 3's recommended pattern exactly.
 
 ## 3. Client SDK usage
 

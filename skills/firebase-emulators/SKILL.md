@@ -21,7 +21,7 @@ npx -y firebase-tools@latest init emulators
 npx -y firebase-tools@latest emulators:start --import=./seed-data --export-on-exit
 ```
 
-```ts
+```ts // @verify
 import firestore from "@react-native-firebase/firestore";
 
 if (__DEV__) firestore().useEmulator("127.0.0.1", 8080);

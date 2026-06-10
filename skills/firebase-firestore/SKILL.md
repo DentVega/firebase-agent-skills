@@ -12,7 +12,7 @@ compatibility: Requires the Firebase CLI, available via `npx -y firebase-tools@l
 
 ## Minimum viable example
 
-```ts
+```ts // @verify
 import firestore from "@react-native-firebase/firestore";
 
 // Write
@@ -91,6 +91,13 @@ service cloud.firestore {
     }
   }
 }
+```
+
+For a default-deny starter that follows this pattern, invoke the scaffold:
+
+```bash
+node node_modules/firebase-agent-skills/scripts/scaffold/firestore-rules.mjs \
+  --out firestore.rules --collection todos
 ```
 
 Deploy:

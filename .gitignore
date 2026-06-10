@@ -3,3 +3,6 @@ node_modules/
 *.log
 .env
 .env.local
+
+# Compile-check workspace
+scripts/snippets/extracted/

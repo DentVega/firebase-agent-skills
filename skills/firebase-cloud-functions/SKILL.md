@@ -12,7 +12,7 @@ compatibility: Requires Node.js 20+ and the Firebase CLI via `npx -y firebase-to
 
 ## Minimum viable example
 
-```ts
+```ts // @verify
 // functions/src/index.ts
 import { onCall, HttpsError } from "firebase-functions/v2/https";
 
@@ -49,6 +49,17 @@ functions/
 ```
 
 ## 2. Function types
+
+### Scaffold a callable
+
+For the canonical v2 callable with the auth check, invoke the scaffold:
+
+```bash
+node node_modules/firebase-agent-skills/scripts/scaffold/callable-function.mjs \
+  --out functions/src/index.ts --name doThing
+```
+
+Use `--append` to add a second function to the same file without overwriting. Then fill in the TODO inside the function body.
 
 ### HTTPS endpoint
 

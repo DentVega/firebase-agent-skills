@@ -13,7 +13,7 @@ compatibility: For Expo/RN, use @react-native-firebase/messaging — NOT expo-no
 
 ## Minimum viable example
 
-```ts
+```ts // @verify
 import messaging from "@react-native-firebase/messaging";
 
 const status = await messaging().requestPermission();

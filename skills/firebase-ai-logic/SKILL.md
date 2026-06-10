@@ -23,7 +23,7 @@ Pick one per project. Migrating later requires re-init code; pick deliberately.
 
 ## Minimum viable example
 
-```ts
+```ts // @verify
 import { getVertexAI, getGenerativeModel } from "@react-native-firebase/vertexai";
 
 const model = getGenerativeModel(getVertexAI(), { model: "gemini-2.5-flash" });

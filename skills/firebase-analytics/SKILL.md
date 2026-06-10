@@ -13,7 +13,7 @@ compatibility: Native module on RN via @react-native-firebase/analytics. On iOS,
 
 ## Minimum viable example
 
-```ts
+```ts // @verify
 import analytics from "@react-native-firebase/analytics";
 
 await analytics().logEvent("post_created", { category: "blog", word_count: 450 });
