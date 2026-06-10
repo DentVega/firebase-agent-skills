@@ -10,6 +10,28 @@ compatibility: Requires the Firebase CLI, available via `npx -y firebase-tools@l
 
 # Cloud Firestore
 
+## Minimum viable example
+
+```ts
+import firestore from "@react-native-firebase/firestore";
+
+// Write
+await firestore().collection("posts").add({
+  title: "hi",
+  authorId: uid,
+  createdAt: firestore.FieldValue.serverTimestamp(),
+});
+
+// Real-time read
+const unsub = firestore()
+  .collection("posts")
+  .where("authorId", "==", uid)
+  .orderBy("createdAt", "desc")
+  .onSnapshot((snap) => setPosts(snap.docs.map((d) => ({ id: d.id, ...d.data() }))));
+```
+
+That's the canonical pattern. `serverTimestamp()` instead of client time, `onSnapshot` instead of polling, return the unsubscribe.
+
 ## 1. Identify or create the database
 
 List existing databases:

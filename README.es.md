@@ -20,6 +20,9 @@ Colección de [Agent Skills](https://agentskills.io/home) para asistentes de có
 | `firebase-analytics` | Eventos custom, user properties, consentimiento ATT en iOS, DebugView, export a BigQuery |
 | `firebase-ai-logic` | Gemini en apps cliente vía Firebase AI Logic — multimodal, streaming, JSON estructurado, chat |
 | `firebase-emulators` | Local Emulator Suite — setup, conexión del cliente, seed import/export, uso en CI, tests de reglas |
+| `firebase-hosting` | Hosting estático / SPA / Next.js — preview channels, redirects, headers personalizados, multi-site |
+| `firebase-realtime-database` | RTDB para presence, chat de baja latencia, estado efímero — reglas, `onDisconnect`, fan-out indexes |
+| `firebase-cost-optimization` | Auditoría cross-cutting y reducción de Firestore reads, Functions GB-s, Storage egress, AI Logic tokens |
 
 ## Instalación
 

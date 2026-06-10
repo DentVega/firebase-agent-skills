@@ -11,6 +11,17 @@ compatibility: Native module on RN via @react-native-firebase/analytics. On iOS,
 
 # Firebase Analytics
 
+## Minimum viable example
+
+```ts
+import analytics from "@react-native-firebase/analytics";
+
+await analytics().logEvent("post_created", { category: "blog", word_count: 450 });
+await analytics().setUserProperty("tier", "pro");
+```
+
+Event names: `lowercase_snake_case`, ≤ 40 chars, ≤ 25 params per event. Violations are silently dropped — verify with DebugView before shipping.
+
 ## 1. Install
 
 ### Web

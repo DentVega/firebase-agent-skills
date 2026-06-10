@@ -11,6 +11,22 @@ compatibility: Works on web (firebase) and Expo/RN (@react-native-firebase/remot
 
 # Firebase Remote Config
 
+## Minimum viable example
+
+```ts
+import remoteConfig from "@react-native-firebase/remote-config";
+
+await remoteConfig().setDefaults({ feature_x_enabled: false });
+await remoteConfig().setConfigSettings({
+  minimumFetchIntervalMillis: __DEV__ ? 0 : 3600 * 1000,
+});
+await remoteConfig().fetchAndActivate();
+
+const enabled = remoteConfig().getValue("feature_x_enabled").asBoolean();
+```
+
+Defaults guarantee the app works offline. Set `minimumFetchIntervalMillis: 0` in dev or you'll think your console changes aren't taking effect.
+
 ## When to use it (and when not)
 
 Use Remote Config for:

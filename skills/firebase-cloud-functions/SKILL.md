@@ -10,6 +10,25 @@ compatibility: Requires Node.js 20+ and the Firebase CLI via `npx -y firebase-to
 
 # Firebase Cloud Functions (2nd gen)
 
+## Minimum viable example
+
+```ts
+// functions/src/index.ts
+import { onCall, HttpsError } from "firebase-functions/v2/https";
+
+export const hello = onCall((request) => {
+  if (!request.auth) throw new HttpsError("unauthenticated", "");
+  return { greeting: `hi ${request.auth.uid}` };
+});
+```
+
+```bash
+npx -y firebase-tools@latest deploy --only functions:hello
+```
+
+A signed-in client calls it via `httpsCallable("hello")`. That's the entire round-trip.
+
+
 Always use the **v2 SDK** (`firebase-functions/v2`) for new functions. v1 is legacy and lacks Cloud Run features like concurrency, min instances, and arbitrary regions.
 
 ## 1. Initialize

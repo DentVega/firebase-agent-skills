@@ -11,6 +11,32 @@ compatibility: Requires Expo SDK 50+ with config plugins. The web JS SDK alone d
 
 # Firebase + Expo / React Native
 
+## Minimum viable example
+
+```bash
+npx expo install @react-native-firebase/app @react-native-firebase/auth
+```
+
+```json
+{
+  "expo": {
+    "ios": { "googleServicesFile": "./GoogleService-Info.plist" },
+    "android": { "googleServicesFile": "./google-services.json" },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      ["expo-build-properties", { "ios": { "useFrameworks": "static" } }]
+    ]
+  }
+}
+```
+
+```bash
+npx expo prebuild --clean && eas build --profile development --platform all
+```
+
+That's the full installation loop. `useFrameworks: "static"` is the line most often forgotten — its absence breaks iOS linking.
+
 ## 1. Pick the right SDK
 
 There are two Firebase JavaScript options on React Native, and they don't compose well:

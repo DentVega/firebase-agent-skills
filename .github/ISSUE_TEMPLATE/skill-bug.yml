@@ -19,6 +19,10 @@ body:
         - firebase-remote-config
         - firebase-analytics
         - firebase-ai-logic
+        - firebase-emulators
+        - firebase-hosting
+        - firebase-realtime-database
+        - firebase-cost-optimization
         - Other / multiple
     validations:
       required: true

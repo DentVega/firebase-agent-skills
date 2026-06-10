@@ -21,6 +21,18 @@ There are two providers under the same SDK:
 
 Pick one per project. Migrating later requires re-init code; pick deliberately.
 
+## Minimum viable example
+
+```ts
+import { getVertexAI, getGenerativeModel } from "@react-native-firebase/vertexai";
+
+const model = getGenerativeModel(getVertexAI(), { model: "gemini-2.5-flash" });
+const result = await model.generateContent("Write a haiku about Firebase");
+console.log(result.response.text());
+```
+
+App Check must be initialized first — without it, anyone with your client bundle can spend your tokens. This is non-negotiable for production.
+
 ## 1. Enable the provider
 
 Firebase Console → Build → AI Logic → Get Started → choose **Vertex AI** or **Google AI**. The console walks through enabling the underlying API.

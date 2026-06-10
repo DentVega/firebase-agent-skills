@@ -13,6 +13,21 @@ compatibility: Native attestation providers require @react-native-firebase/app-c
 
 App Check verifies that incoming traffic to your Firebase services comes from your authentic, unmodified app — not a script, scraper, or repackaged binary. Without it, anyone with your Firebase web config (which ships in your client bundle) can hit your APIs.
 
+## Minimum viable example
+
+```ts
+import appCheck from "@react-native-firebase/app-check";
+
+const provider = appCheck().newReactNativeFirebaseAppCheckProvider();
+provider.configure({
+  android: { provider: "playIntegrity" },
+  apple:   { provider: "appAttestWithDeviceCheckFallback" },
+});
+await appCheck().initializeAppCheck({ provider, isTokenAutoRefreshEnabled: true });
+```
+
+Must run **before** any other Firebase call (auth, Firestore, etc). Then flip enforcement on per product in the Firebase Console — but monitor unverified traffic for a week first.
+
 ## 1. Register attestation providers
 
 In Firebase Console → App Check → register each app:

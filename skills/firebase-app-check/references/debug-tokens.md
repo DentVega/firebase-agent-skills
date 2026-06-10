@@ -4,6 +4,30 @@ Real attestation (App Attest, Play Integrity) does not work on simulators, emula
 
 Debug tokens are powerful: anyone with one can bypass App Check entirely. Treat them like API keys.
 
+## How App Check verifies a request
+
+```mermaid
+sequenceDiagram
+    participant App
+    participant AppCheck as App Check SDK
+    participant Attest as Attestation provider<br/>(Play Integrity / App Attest)
+    participant FBAC as Firebase App Check<br/>backend
+    participant Product as Firestore / Functions /<br/>Storage / AI Logic
+
+    App->>AppCheck: initializeAppCheck(provider)
+    AppCheck->>Attest: request attestation
+    Attest-->>AppCheck: signed device assertion
+    AppCheck->>FBAC: exchange assertion for App Check token
+    FBAC-->>AppCheck: short-lived App Check token (1h)
+
+    App->>Product: read/write request<br/>(token attached automatically)
+    Product->>FBAC: verify token
+    FBAC-->>Product: valid → allow / invalid → reject
+    Product-->>App: response
+```
+
+Debug tokens skip the Attest → FBAC exchange — the SDK uses the pre-registered debug string directly. Same effect from the product's perspective; very different security guarantees.
+
 ## How to mint a debug token
 
 ### iOS Simulator

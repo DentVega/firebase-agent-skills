@@ -1,5 +1,29 @@
 # Notification channels, sounds, and rich content
 
+## FCM message lifecycle
+
+A message can be received in three app states, each with its own handler. Routing data should live in `data`, not `notification`, because `notification` is empty for data-only messages.
+
+```mermaid
+flowchart TD
+    Send[Cloud Function calls<br/>messaging.send] --> FCM[FCM]
+    FCM -->|APNs/FCM transport| Device
+
+    Device --> State{App state on arrival}
+
+    State -->|Foreground| FG[onMessage handler<br/>iOS hides system banner;<br/>show your own UI]
+    State -->|Background<br/>then tapped| BG[onNotificationOpenedApp<br/>read msg.data for routing]
+    State -->|Quit<br/>then tapped| Quit[getInitialNotification<br/>read msg.data for routing]
+    State -->|Background<br/>not tapped| Bg2[setBackgroundMessageHandler<br/>silent data sync only]
+
+    FG --> Route[router.push msg.data.deepLink]
+    BG --> Route
+    Quit --> Route
+```
+
+The most common bug: reading `msg.notification.title` for routing. `notification` is the visible text and is empty when the function sent a data-only message. Always use `msg.data` for app routing.
+
+
 ## Android notification channels (required on Android 8+)
 
 Every notification on Android 8+ must be delivered through a **channel**. The channel controls importance, sound, vibration, lights, and whether the user can disable that category from system settings — independent of all-or-nothing notification permission.

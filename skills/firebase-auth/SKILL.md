@@ -10,6 +10,17 @@ compatibility: Requires the Firebase CLI, available via `npx -y firebase-tools@l
 
 # Firebase Authentication
 
+## Minimum viable example
+
+```ts
+import auth from "@react-native-firebase/auth";
+
+await auth().signInWithEmailAndPassword(email, password);
+auth().onAuthStateChanged((user) => setUser(user)); // sole source of truth
+```
+
+That's the whole loop. Everything else — Google, Apple, password reset, custom claims — is a variation on this pattern.
+
 ## 1. Prerequisites
 
 A Firebase project must exist before running anything in this skill. Verify with:

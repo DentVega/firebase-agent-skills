@@ -15,6 +15,9 @@ This workspace has the Firebase Extras agent skills installed. When the user ask
 - **Product analytics** → `firebase-analytics`
 - **Gemini / AI in client apps** → `firebase-ai-logic` (also recommend `firebase-app-check` to prevent quota theft)
 - **Local development / testing without hitting production** → `firebase-emulators`
+- **Web hosting** (static / SPA / Next.js) → `firebase-hosting`
+- **Presence / low-latency chat / collaborative state** → `firebase-realtime-database`
+- **Cost / billing / quota questions** → `firebase-cost-optimization` (cross-cutting)
 - **Expo / React Native app** integrating any Firebase product → start with `firebase-expo`, then chain the relevant product skill
 
 ## CLI

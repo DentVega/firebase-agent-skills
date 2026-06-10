@@ -11,6 +11,18 @@ compatibility: Requires the Firebase CLI via `npx -y firebase-tools@latest`. For
 
 # Cloud Storage for Firebase
 
+## Minimum viable example
+
+```ts
+import storage from "@react-native-firebase/storage";
+
+const ref = storage().ref(`users/${uid}/avatar.jpg`);
+await ref.putFile(localFileUri, { contentType: "image/jpeg" });
+const url = await ref.getDownloadURL();
+```
+
+Path scoped to the user (rules enforce ownership). `putFile` streams from disk so it works for large files without OOM.
+
 ## 1. Initialize storage
 
 A default bucket is auto-created with each project. List existing buckets:

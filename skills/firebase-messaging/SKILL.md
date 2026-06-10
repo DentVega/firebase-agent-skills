@@ -11,6 +11,20 @@ compatibility: For Expo/RN, use @react-native-firebase/messaging — NOT expo-no
 
 # Firebase Cloud Messaging (FCM)
 
+## Minimum viable example
+
+```ts
+import messaging from "@react-native-firebase/messaging";
+
+const status = await messaging().requestPermission();
+if (status === messaging.AuthorizationStatus.AUTHORIZED) {
+  const token = await messaging().getToken();
+  // store token against user.uid in Firestore, prune on send failures
+}
+```
+
+Plus an APNs key uploaded to Firebase Console for iOS. Everything else (topics, rich notifications, background handlers) builds on this.
+
 ## 1. Provider setup
 
 ### iOS (APNs)

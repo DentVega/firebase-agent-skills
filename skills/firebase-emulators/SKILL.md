@@ -14,6 +14,21 @@ compatibility: Requires Java 17+ (for Firestore/RTDB/Pub-Sub emulators) and the 
 
 The emulator suite runs Firebase services on `localhost` so you can develop and test without touching production. Every product you ship should have its local equivalent running here — it pays back the setup time within a week.
 
+## Minimum viable example
+
+```bash
+npx -y firebase-tools@latest init emulators
+npx -y firebase-tools@latest emulators:start --import=./seed-data --export-on-exit
+```
+
+```ts
+import firestore from "@react-native-firebase/firestore";
+
+if (__DEV__) firestore().useEmulator("127.0.0.1", 8080);
+```
+
+`emulators:start` with `--export-on-exit` means your seed data persists between runs. `--import` loads it on startup so every dev day starts from the same fixtures.
+
 ## 1. Initialize
 
 In a Firebase project root:

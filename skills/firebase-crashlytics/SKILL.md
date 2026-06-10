@@ -10,6 +10,22 @@ compatibility: Native module — requires Expo prebuild or EAS Build. Will not w
 
 # Firebase Crashlytics (Expo / React Native)
 
+## Minimum viable example
+
+```ts
+import crashlytics from "@react-native-firebase/crashlytics";
+
+// Set context once the user signs in
+crashlytics().setUserId(user.uid);
+
+// In your error boundary
+componentDidCatch(error: Error) {
+  crashlytics().recordError(error);
+}
+```
+
+Native crashes are captured automatically once the plugin is installed. JS errors require `recordError` — they don't surface otherwise.
+
 ## 1. Install
 
 ```bash
