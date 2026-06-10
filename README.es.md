@@ -1,4 +1,7 @@
-# Firebase Agent Skills (Comunidad)
+<h1 align="center">
+  <img src="./assets/logo.svg" width="64" alt="" style="vertical-align: middle"/><br/>
+  Firebase Agent Skills (Comunidad)
+</h1>
 
 Colección de [Agent Skills](https://agentskills.io/home) para asistentes de código con IA (Claude Code, Cursor, Gemini CLI, GitHub Copilot) que les enseñan a integrar Firebase en proyectos nuevos — incluyendo flujos de **Expo / React Native** que el paquete oficial [`firebase/agent-skills`](https://github.com/firebase/agent-skills) todavía no cubre.
 

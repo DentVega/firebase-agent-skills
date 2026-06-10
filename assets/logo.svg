@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Firebase Agent Skills">
+  <defs>
+    <linearGradient id="flame" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFCA28"/>
+      <stop offset="60%" stop-color="#FFA000"/>
+      <stop offset="100%" stop-color="#F57C00"/>
+    </linearGradient>
+    <linearGradient id="inner" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Flame body -->
+  <path d="
+    M64 8
+    C 70 26, 82 32, 88 48
+    C 92 60, 90 70, 84 80
+    C 96 76, 104 88, 102 102
+    C 100 116, 84 122, 64 122
+    C 44 122, 28 116, 26 102
+    C 24 88, 32 76, 44 80
+    C 38 70, 36 60, 40 48
+    C 46 32, 58 26, 64 8 Z"
+    fill="url(#flame)"/>
+
+  <!-- Inner highlight -->
+  <path d="
+    M64 28
+    C 68 42, 76 48, 78 60
+    C 80 70, 76 80, 70 88
+    C 78 86, 82 94, 80 102
+    C 78 110, 70 114, 64 114
+    C 58 114, 50 110, 48 102
+    C 46 94, 50 86, 58 88
+    C 52 80, 48 70, 50 60
+    C 52 48, 60 42, 64 28 Z"
+    fill="url(#inner)" opacity="0.85"/>
+
+  <!-- Skill "sparkles" — three small dots arranged in an arc, evoking
+       the "skill" / capability augmentation around the Firebase flame. -->
+  <circle cx="16"  cy="64" r="3.5" fill="#FFA000"/>
+  <circle cx="22"  cy="36" r="2.5" fill="#FFA000"/>
+  <circle cx="112" cy="64" r="3.5" fill="#FFA000"/>
+  <circle cx="106" cy="36" r="2.5" fill="#FFA000"/>
+</svg>

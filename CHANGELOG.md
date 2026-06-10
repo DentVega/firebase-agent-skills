@@ -4,6 +4,26 @@ All notable changes to this package are documented here. The format is loosely b
 
 Versions are also reflected in `package.json` and `.claude-plugin/plugin.json`.
 
+## [0.3.0] — 2026-06-10
+
+### Added
+
+- New skill **`firebase-hosting`** — static / SPA / Next.js hosting, preview channels with auto-PR comments, redirects, custom headers, multi-site, SSR via Cloud Functions. Includes a CI-focused reference for the `FirebaseExtended/action-hosting-deploy` setup.
+- New skill **`firebase-cost-optimization`** — cross-cutting audit + reduction across Firestore reads, Functions GB-seconds, Storage egress, AI Logic tokens. Triggers on billing / quota questions. Quarterly audit checklist included.
+- New skill **`firebase-realtime-database`** — presence with `onDisconnect`, low-latency chat, JSON-tree rules, fan-out indexes for queries Firestore can't express. Clear "RTDB vs Firestore" decision matrix.
+- **Minimum viable example section** prepended to every SKILL.md (15 skills). A 5-10 line snippet at the top showing the smallest working pattern — gives the agent an anchor for what success looks like before reading the rest of the skill.
+- **Mermaid diagrams** in three high-value references: auth state lifecycle (`firebase-auth/references/react-native.md`), FCM message lifecycle across app states (`firebase-messaging/references/notification-channels.md`), and App Check token exchange flow (`firebase-app-check/references/debug-tokens.md`).
+- **Opt-in TypeScript compile check** for code samples via `// @verify` marker on the opening fence. `scripts/check-snippets.mjs` extracts tagged snippets, type-checks against a relaxed tsconfig with `firebase` / `firebase-admin` / `firebase-functions` real types and stubbed `@react-native-firebase/*` modules. Initial coverage: 8 verified snippets (all MVE blocks).
+- **Scaffolding scripts** under `scripts/scaffold/` — `auth-screen.mjs`, `callable-function.mjs`, `firestore-rules.mjs`. SKILL.md files now point at the scaffolds as the recommended way to generate canonical boilerplate.
+- **Logo + social preview** under `assets/`. Logo is a Firebase-flame mark with skill sparkles. Social preview is a 1280×640 SVG sized for GitHub's og:image — see `assets/README.md` for conversion + upload instructions.
+- **Screencast script** at `docs/screencast-script.md` — a 90-second shot list / narration for recording a demo to embed in the README.
+- **CI** now runs `check:snippets` after `validate`. `npm run check:all` runs both locally.
+
+### Changed
+
+- `firebase-auth`, `firebase-cloud-functions`, `firebase-firestore` SKILL.md now include a "Scaffold a …" subsection pointing at the matching scaffold script.
+- `README.md` and `README.es.md` now display the logo in the title block.
+
 ## [0.2.0] — 2026-05-24
 
 ### Added
