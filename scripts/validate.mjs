@@ -48,7 +48,7 @@ const VERB_WHITELIST = new Set([
   "scaffolds", "runs", "manages", "implements", "wires", "installs",
   "deploys", "generates", "handles", "builds", "creates", "validates",
   "documents", "optimizes", "audits", "monitors", "tests", "logs",
-  "stores", "queries", "syncs",
+  "stores", "queries", "syncs", "applies", "structures", "organizes",
 ]);
 
 function descriptionStartsWithVerb(desc) {

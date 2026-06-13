@@ -1,7 +1,7 @@
 {
   "name": "firebase-extras",
   "description": "Community Firebase agent skills focused on Expo / React Native and cross-product mobile workflows. Complements the official firebase/agent-skills package.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Brian Dennis Vega Hidalgo"
   },

@@ -23,6 +23,7 @@ body:
         - firebase-hosting
         - firebase-realtime-database
         - firebase-cost-optimization
+        - firebase-architecture
         - Other / multiple
     validations:
       required: true

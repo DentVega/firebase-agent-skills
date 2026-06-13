@@ -26,6 +26,7 @@ A collection of [Agent Skills](https://agentskills.io/home) for AI coding assist
 | `firebase-hosting` | Static / SPA / Next.js hosting — preview channels, redirects, custom headers, multi-site |
 | `firebase-realtime-database` | RTDB for presence, low-latency chat, ephemeral state — rules, `onDisconnect`, fan-out indexes |
 | `firebase-cost-optimization` | Cross-cutting audit + reduction of Firestore reads, Functions GB-s, Storage egress, AI Logic tokens |
+| `firebase-architecture` | SOLID for Firebase + RN apps — hooks, services, Repository pattern, when each level of abstraction pays off |
 
 ## Installation
 

@@ -4,6 +4,22 @@ All notable changes to this package are documented here. The format is loosely b
 
 Versions are also reflected in `package.json` and `.claude-plugin/plugin.json`.
 
+## [0.4.0] — 2026-06-11
+
+### Added
+
+- New skill **`firebase-architecture`** — SOLID applied specifically to Firebase + React Native. Covers SRP at the hook/service level, OCP via composition, LSP via typed converters, ISP via narrow imports, and DIP at two levels: a thin service module (Level 1, for most apps) or a full Repository interface with context injection (Level 2, for testability). Honest about when SOLID earns its keep vs when it's overhead — start at Level 1, promote when tests-against-emulator pain exceeds indirection pain.
+- New reference **`testing-with-repositories.md`** — end-to-end worked example of the Repository pattern with an in-memory implementation that runs unit tests in microseconds, no emulator.
+- Validator: added `applies`, `structures`, `organizes` to the action-verb whitelist for descriptions.
+
+### Changed
+
+- `firebase-skills-example` companion repo refactored to demonstrate the architecture skill:
+  - New `lib/repositories/` layer (interface, Firestore impl, in-memory impl, context provider)
+  - New `lib/hooks/` (useUid, useTodos, useTodoActions — reads / writes / auth separated)
+  - `app/(app)/index.tsx` is now presentation-only (no Firestore imports)
+  - `__tests__/inMemoryTodos.test.ts` shows the testing payoff (6 contract tests, no emulator)
+
 ## [0.3.0] — 2026-06-10
 
 ### Added

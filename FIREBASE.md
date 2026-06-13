@@ -18,6 +18,7 @@ This workspace has the Firebase Extras agent skills installed. When the user ask
 - **Web hosting** (static / SPA / Next.js) → `firebase-hosting`
 - **Presence / low-latency chat / collaborative state** → `firebase-realtime-database`
 - **Cost / billing / quota questions** → `firebase-cost-optimization` (cross-cutting)
+- **App structure / SOLID / testability** → `firebase-architecture` (cross-cutting; how to organize calls to the product skills)
 - **Expo / React Native app** integrating any Firebase product → start with `firebase-expo`, then chain the relevant product skill
 
 ## CLI

@@ -26,6 +26,7 @@ Colección de [Agent Skills](https://agentskills.io/home) para asistentes de có
 | `firebase-hosting` | Hosting estático / SPA / Next.js — preview channels, redirects, headers personalizados, multi-site |
 | `firebase-realtime-database` | RTDB para presence, chat de baja latencia, estado efímero — reglas, `onDisconnect`, fan-out indexes |
 | `firebase-cost-optimization` | Auditoría cross-cutting y reducción de Firestore reads, Functions GB-s, Storage egress, AI Logic tokens |
+| `firebase-architecture` | SOLID para apps Firebase + RN — hooks, services, patrón Repository, cuándo cada nivel de abstracción vale la pena |
 
 ## Instalación
 
